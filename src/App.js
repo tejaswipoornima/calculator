@@ -3,19 +3,21 @@ import './Calculator.css'; // Optional CSS for styling
 
 const Calculator = () => {
   const [input, setInput] = useState(''); // State to hold the input value
+  const [result, setResult] = useState(''); // State to hold the result value
 
   // Function to handle button clicks
   const handleClick = (value) => {
     if (value === '=') {
       // Calculate result
       try {
-        setInput(eval(input).toString()); // Using eval here for simplicity; consider using a library like math.js for more advanced calculations
+        setResult(eval(input).toString()); // Using eval here for simplicity; consider using a library like math.js for more advanced calculations
       } catch (error) {
-        setInput('Error');
+        setResult('Error');
       }
     } else if (value === 'C') {
-      // Clear the input
+      // Clear the input and result
       setInput('');
+      setResult('');
     } else {
       // Append the clicked button value to the input
       setInput(input + value);
@@ -24,8 +26,10 @@ const Calculator = () => {
 
   return (
     <div className="calculator">
-      <h1>React Calculator</h1>
-      <input type="text" value={input} readOnly />
+      <div className="display">
+        <input type="text" value={input} readOnly className="input-display" />
+        <div><h4>{result}</h4></div>
+      </div>
       <div className="keypad">
         <button onClick={() => handleClick('7')}>7</button>
         <button onClick={() => handleClick('8')}>8</button>
